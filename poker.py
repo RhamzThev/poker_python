@@ -43,9 +43,3 @@ class Queue:
     __slots__ = []
 
 # Make a deck of Cards using a List Queue 
-
-def main():
-    card = Card(13, "Hearts")
-    print(card)
-
-if __name__ == "__main__": main()
