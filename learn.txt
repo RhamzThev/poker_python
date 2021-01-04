@@ -1,0 +1,13 @@
+start:
+    shuffle deck
+    player is dealt 2 cards
+    BLIND ROUND - check, bet, or fold
+    THE FLOP - 3 cards are placed on the table
+    ROUND - check, bet, or fold
+    TURN - 1 card is placed on the table
+    ROUND - check, bet, or fold
+    RIVER - 1 more card is placed on the table
+    ROUND - check, bet, or fold
+    Cards are then revealed, and a winner will be announced.
+
+   

@@ -53,10 +53,11 @@ class Card:
             return card
 
 class Queue:
-    slots = ["__list"]
+    slots = ["__list", "__is_cpu"]
 
-    def __init__(self):
+    def __init__(self, is_cpu = False):
         self.__list = []
+        self.__is_cpu = is_cpu
 
     def next(self):
         try:
@@ -92,6 +93,58 @@ class Queue:
             string += str(item) + " "
         return string.strip()
         
+class Player:
+    __slots__ = ["__cards", "__chips", "__folded", "__is_cpu"]
+    def __init__(self, is_cpu = False):
+        self.__cards = []
+        self.__chips = 0
+        self.__folded = False
+        self.__is_cpu = is_cpu
+
+    def is_cpu(self):
+        return self.__is_cpu
+
+    def cards(self):
+        return self.__cards
+    
+    def chips(self):
+        return self.__chips
+
+    def folded(self):
+        return self.__folded
+
+    def add(self, amount):
+        self.__chips += amount
+
+    def subtract(self, amount):
+        self.__chips -= amount
+
+    def fold(self):
+        self.__folded = True
+    
+    def add_card(self, card):
+        self.__cards.append(card)
+
+    def reset(self):
+        self.__cards = []
+        self.__folded = False
+
+    def bet(self):
+        if not self.is_cpu():
+            prompt = input("Fold ('f'), Check ('c'), or Raise ('r')? :: ")
+            if prompt.lower() == 'f':
+                self.fold()
+            elif prompt.lower() == 'c':
+                self.check()
+            elif prompt.lower() == 'r':
+                self.raise_bet()
+             
+             
+
+    def __str__(self):
+        return "Cards: " + str(self.__cards)
+
+
 RANKS = [i for i in range(2, 15)]
 
 SUITS = ["Clubs", "Diamonds", "Hearts", "Spades"]
