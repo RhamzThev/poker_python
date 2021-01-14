@@ -94,12 +94,15 @@ class Queue:
         return string.strip()
         
 class Player:
-    __slots__ = ["__cards", "__chips", "__folded", "__is_cpu"]
+
+    __slots__ = ["__cards", "__chips", "__folded", "__is_cpu", "__bet"]
+
     def __init__(self, is_cpu = False):
         self.__cards = []
         self.__chips = 0
         self.__folded = False
         self.__is_cpu = is_cpu
+        self.__bet = 0
 
     def is_cpu(self):
         return self.__is_cpu
@@ -112,6 +115,9 @@ class Player:
 
     def folded(self):
         return self.__folded
+
+    def bet(self):
+        return self.__bet
 
     def add(self, amount):
         self.__chips += amount
@@ -129,6 +135,17 @@ class Player:
         self.__cards = []
         self.__folded = False
 
+    def check(self, bet):
+        self.__bet = bet
+
+    def raise_bet(self):
+        prompt = int(input("How much? :: "))
+        if (self.__chips - prompt) < 0:
+            print("Too much. Please try again.")
+            self.raise_bet()
+        else:
+            self.__bet += prompt
+
     def bet(self):
         if not self.is_cpu():
             prompt = input("Fold ('f'), Check ('c'), or Raise ('r')? :: ")
@@ -138,9 +155,9 @@ class Player:
                 self.check()
             elif prompt.lower() == 'r':
                 self.raise_bet()
-             
-             
-
+        else:
+            return
+            
     def __str__(self):
         return "Cards: " + str(self.__cards)
 
@@ -150,3 +167,4 @@ RANKS = [i for i in range(2, 15)]
 SUITS = ["Clubs", "Diamonds", "Hearts", "Spades"]
 
 # Next step: Apply steps to make poker game happen.
+
